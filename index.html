@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+    <title>OLR Hysteresis Viewer</title>
+</head>
+
 <body style="background-color:black; margin: 0; padding: 0">
 
 <div id="openseadragon1" style="width: 100vw; height:100vh; background:black"></div>
@@ -9,9 +14,10 @@
         id: "openseadragon1",
         prefixUrl: "/openseadragon/images/",
         tileSources: {
-        type: 'image',
-        url:  'IMG_0637-Pano.jpg',
-        buildPyramid: false
+        type:       "zoomifytileservice",
+        height:     9839,
+        width:      20143,
+        tilesUrl:   "Final/"
         }
     });
 </script>
