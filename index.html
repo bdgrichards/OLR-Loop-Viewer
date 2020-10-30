@@ -10,6 +10,7 @@
 <div id="openseadragon1" style="width: 100vw; height:100vh; background:black"></div>
 <script src="./openseadragon/openseadragon.min.js"></script>
 <script type="text/javascript">
+    OpenSeadragon.pixelDensityRatio = 1;
     var viewer = OpenSeadragon({
         id: "openseadragon1",
         prefixUrl: "/openseadragon/images/",
@@ -17,7 +18,7 @@
         type:       "zoomifytileservice",
         height:     9839,
         width:      20143,
-        tilesUrl:   "Final/"
+        tilesUrl:   "Highres/"
         }
     });
 </script>
