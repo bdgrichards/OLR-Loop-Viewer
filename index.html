@@ -1,38 +1,128 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>OLR Hysteresis Viewer</title>
+  <head>
+    <title>OLR Loop Viewer</title>
     <link rel='icon' href='icon.ico' type='image/x-icon'/ >
-</head>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      #legend {
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+      }
+      #legendImage {
+        width: 700px;
+      }
+      #diagram {
+        width: 100%;
+      }
 
-<body style="background-color:black; margin: 0; padding: 0">
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+      }
+      p {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+      }
+      .modal {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
 
-<div id="openseadragon1" style="width: 100vw; height:100vh; background:black"></div>
-<script src="./openseadragon/openseadragon.min.js"></script>
-<script type="text/javascript">
-    OpenSeadragon.pixelDensityRatio = 1;
-    var viewer = OpenSeadragon({
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      @media only screen and (max-device-width: 700px) {
+        #legendImage {
+          width: 100vw;
+        }
+      }
+    </style>
+  </head>
+
+  <body style="background-color: black; margin: 0; padding: 0">
+    <div
+      id="openseadragon1"
+      style="width: 100vw; height: 100vh; background: black"
+    ></div>
+    <div id="legend">
+      <img id="legendImage" src="Legend.jpg" alt="Legend" />
+    </div>
+    <div id="welcomeModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Welcome to the OLR Loop Viewer!</h1>
+        <p>Zoom in to see the individual OLR loops for each location.</p>
+        <p>
+          Each loop is labelled with it's coordinates in the form [ latitude,
+          longitude ] and each month is coloured according to the legend at the
+          bottom of the screen.
+        </p>
+        <img id="diagram" src="diagram.png" alt="Legend" />
+      </div>
+    </div>
+
+    <script src="./openseadragon/openseadragon.min.js"></script>
+    <script type="text/javascript">
+      OpenSeadragon.pixelDensityRatio = 1;
+      let viewer = OpenSeadragon({
         id: "openseadragon1",
         prefixUrl: "./openseadragon/images/",
         tileSources: {
-        type:       "zoomifytileservice",
-        height:     24598,
-        width:      50220,
-        tilesUrl:   "Highres/"
-        }
-    });
-
-    viewer.addTiledImage({
-    tileSource: {
-            type: 'image',
-            url:  'Legend.jpg'
+          type: "zoomifytileservice",
+          height: 24598,
+          width: 50220,
+          tilesUrl: "Highres/",
         },
-    x: 0,
-    y: 0.5,
-    width: 0.5
-});
-</script>
+        showNavigator: true,
+      });
+    </script>
+    <script>
+      let modal = document.getElementById("welcomeModal");
+      let span = document.getElementsByClassName("close")[0];
 
-</body>
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
+  </body>
 </html>
